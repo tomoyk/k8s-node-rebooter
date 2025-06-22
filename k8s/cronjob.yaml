@@ -2,7 +2,7 @@ apiVersion: batch/v1
 kind: CronJob
 metadata:
   name: node-rebooter
-  namespace: default
+  namespace: node-rebooter
 spec:
   schedule: "*/5 * * * *"  # Every 5 minutes
   concurrencyPolicy: Forbid

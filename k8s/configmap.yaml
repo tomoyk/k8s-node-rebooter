@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: node-vm-map-config
-  namespace: default
+  namespace: node-rebooter
 data:
   node_vm_map.json: |
     {
