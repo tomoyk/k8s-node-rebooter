@@ -13,25 +13,10 @@ This script provides the following functionality:
 
 ## Requirements
 
-- Python 3.8+
+- Python 3.10+
 - Kubernetes Python client
 - Paramiko (for SSH connections)
 - Tenacity (for retry functionality)
-
-## File Structure
-
-```
-k8s_node_rebooter/
-├── restart_notready.py      # Main script
-├── requirements.txt         # Python dependencies
-├── Dockerfile              # Docker image definition
-├── config/
-│   └── node_vm_map.json    # Node-VM mapping configuration
-├── k8s/
-│   ├── cronjob.yaml        # CronJob manifest
-│   └── configmap.yaml      # ConfigMap manifest
-└── README.md               # This file
-```
 
 ## Configuration
 
@@ -61,31 +46,6 @@ The following files are required when running the script:
 - `/secrets/id_rsa` - SSH private key for ESXi hosts
 
 ## Usage
-
-### Local Execution
-
-1. Install dependencies:
-```bash
-pip install -r requirements.txt
-```
-
-2. Place required files:
-```bash
-# Place kubeconfig
-cp your-kubeconfig /kube/config
-
-# Place node-VM mapping configuration
-cp config/node_vm_map.json /config/
-
-# Place SSH private key
-cp your-ssh-key /secrets/id_rsa
-chmod 400 /secrets/id_rsa
-```
-
-3. Run the script:
-```bash
-python3 restart_notready.py
-```
 
 ### Docker Execution
 
@@ -145,28 +105,6 @@ The script outputs logs to stdout in the following format:
 2024-01-01 12:00:00,900 - INFO - Reboot process completed. Successfully rebooted 1 out of 1 nodes
 ```
 
-## Security Considerations
-
-- Protect SSH private keys with appropriate permissions (400)
-- Protect kubeconfig files with appropriate permissions
-- Consider using more secure authentication methods in production environments
-
-## Troubleshooting
-
-### Common Issues
-
-1. **SSH Connection Errors**
-   - Verify ESXi host IP address and SSH key are correct
-   - Ensure SSH is enabled on ESXi hosts
-
-2. **Kubernetes Connection Errors**
-   - Verify kubeconfig file is correct
-   - Check network connectivity to the cluster
-
-3. **VMID Not Found**
-   - Verify node-VM mapping configuration is correct
-   - Ensure VMID exists on ESXi host
-
 ### Debugging
 
 To view detailed logs:
@@ -191,24 +129,3 @@ kubectl logs job/node-rebooter-<timestamp> -f
 - Real-time node status monitoring
 - Detailed logging of all operations
 - Success/failure statistics
-
-## Architecture
-
-The script follows a modular design:
-
-1. **NodeRebooter Class**: Main orchestrator for the reboot process
-2. **Kubernetes Client**: Handles cluster communication
-3. **SSH Client**: Manages ESXi host connections
-4. **Configuration Manager**: Handles node-VM mapping
-
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add tests if applicable
-5. Submit a pull request
-
-## License
-
-This project is licensed under the MIT License. 
