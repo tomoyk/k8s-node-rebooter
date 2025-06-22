@@ -20,11 +20,8 @@ COPY --from=builder /app/packages /app/packages
 # Copy the main script
 COPY restart_notready.py .
 
-# Make script executable
-RUN chmod +x restart_notready.py
-
-# Create necessary directories
-RUN mkdir -p /kube /config /secrets
+# Add OCI label
+LABEL org.opencontainers.image.source https://github.com/tomoyk/k8s-node-rebooter
 
 # Set Python path to include installed packages
 ENV PYTHONPATH=/app/packages
