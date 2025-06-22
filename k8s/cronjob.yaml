@@ -1,0 +1,45 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: node-rebooter
+  namespace: default
+spec:
+  schedule: "*/5 * * * *"  # Every 5 minutes
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: node-rebooter
+            image: ghcr.io/tomoyk/k8s-node-rebooter/k8s-node-rebooter:latest
+            imagePullPolicy: Always
+            volumeMounts:
+            - name: kubeconfig
+              mountPath: /kube
+              readOnly: true
+            - name: node-vm-map
+              mountPath: /config
+              readOnly: true
+            - name: ssh-key
+              mountPath: /secrets
+              readOnly: true
+            env:
+            - name: PYTHONUNBUFFERED
+              value: "1"
+          volumes:
+          - name: kubeconfig
+            secret:
+              secretName: kubeconfig-secret
+          - name: node-vm-map
+            configMap:
+              name: node-vm-map-config
+          - name: ssh-key
+            secret:
+              secretName: esxi-ssh-key
+              defaultMode: 0400
+          restartPolicy: OnFailure
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 1000
+            fsGroup: 1000

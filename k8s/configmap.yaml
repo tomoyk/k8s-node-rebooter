@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: node-vm-map-config
+  namespace: default
+data:
+  node_vm_map.json: |
+    {
+      "G2124034-Clematis-m": {
+        "esxi_host": "192.168.201.8",
+        "vmid": "51"
+      },
+      "G2124034-Clematis-worker1": {
+        "esxi_host": "192.168.201.9",
+        "vmid": "52"
+      },
+      "G2124034-Clematis-worker2": {
+        "esxi_host": "192.168.201.10",
+        "vmid": "53"
+      },
+      "G2124034-Clematis-Worker3": {
+        "esxi_host": "192.168.201.11",
+        "vmid": "54"
+      }
+    }
