@@ -7,19 +7,19 @@ data:
   node_vm_map.json: |
     {
       "G2124034-Clematis-m": {
-        "esxi_host": "192.168.201.8",
+        "esxi_host": "192.168.201.1",
         "vmid": "51"
       },
       "G2124034-Clematis-worker1": {
-        "esxi_host": "192.168.201.9",
+        "esxi_host": "192.168.201.1",
         "vmid": "52"
       },
       "G2124034-Clematis-worker2": {
-        "esxi_host": "192.168.201.10",
+        "esxi_host": "192.168.201.1",
         "vmid": "53"
       },
       "G2124034-Clematis-Worker3": {
-        "esxi_host": "192.168.201.11",
+        "esxi_host": "192.168.201.1",
         "vmid": "54"
       }
     }
