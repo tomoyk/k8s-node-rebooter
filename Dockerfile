@@ -8,8 +8,8 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install --no-cache-dir --target=/app/packages -r requirements.txt
 
-# Final stage using distroless image
-FROM gcr.io/distroless/python3-debian11
+# Final stage using slim image
+FROM python:3.11-slim
 
 # Set working directory
 WORKDIR /app
